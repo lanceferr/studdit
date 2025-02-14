@@ -1,0 +1,139 @@
+
+* {
+    margin: 0;
+}
+
+body {
+    background-color: #f0f0f0;
+    font-family: Arial;
+    overflow: auto;
+}
+
+
+/* Sidenav */
+.sidenav {
+    background-color: #ffffff;
+    color: #333;
+    border-bottom-right-radius: 25px;
+    height: 86%;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    position: absolute;
+    width: 250px;
+}
+
+.profile {
+    margin-bottom: 20px;
+    margin-top: -12px;
+    text-align: center;
+}
+
+.profile img {
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px 1px grey;
+}
+
+.name {
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 20px;
+}
+
+.course {
+    font-size: 16px;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+/* End */
+
+/* Main */
+.main {
+    margin-top: 2%;
+    margin-left: 29%;
+    font-size: 28px;
+    padding: 0 10px;
+    width: 58%;
+}
+
+.main h2 {
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.main .card {
+    background-color: #fff;
+    border-radius: 18px;
+    box-shadow: 1px 1px 8px 0 grey;
+    height: auto;
+    margin-bottom: 20px;
+    padding: 20px 0 20px 50px;
+}
+
+.main .card table {
+    border: none;
+    font-size: 16px;
+    height: 270px;
+    width: 80%;
+}
+
+.edit {
+    position: absolute;
+    color: #e7e7e8;
+    right: 14%;
+}
+
+.posts {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    order: 2;
+}
+
+.post {
+    background: white;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.post-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.post-author {
+    color: #888;
+}
+
+.post-content {
+    margin: 20px 0;
+}
+
+.post-interactions button {
+    background: #0079d3;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.post-interactions button:hover {
+    background-color: #005ea1;
+}
