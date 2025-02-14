@@ -4,9 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studdit Forum - Subject</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/studdit-subject.css">
 </head>
 <body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <a href="studdit-main.html" class="logo">
+            <h1>studdit</h1>
+        </div>
+        <nav>
+            <input type="text" id="search" placeholder="Search threads...">
+            <a href="subject.html">Subjects</a> 
+            <a href="create-thread.html">Create</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="posts">
+            <!-- Post 1 -->
+            <article class="post">
+                <div class="post-info">
+                    <h2 class="post-title">First studdit Post</h2>
+                    <p class="post-author"><a href="profile.html">Posted by u/username</a></p>
+                </div>
+                <div class="post-content">
+                    <p>This is an example of a studdit post. It could contain text, images, or links!</p>
+                </div>
+                <div class="post-interactions">
+                    <button>👍 100</button>
+                    <button>💬 20 Comments</button>
+                </div>
+            </article>
+
+            <!-- Post 2 -->
+            <article class="post">
+                <div class="post-info">
+                    <h2 class="post-title">Another studdit Post</h2>
+                    <p class="post-author">Posted by u/another_user</p>
+                </div>
+                <div class="post-content">
+                    <p>Here is another example post to simulate a discussion on studdit.</p>
+                </div>
+                <div class="post-interactions">
+                    <button>👍 50</button>
+                    <button>💬 5 Comments</button>
+                </div>
+            </article>
+
+        <!-- Post 3 -->
+        <article class="post">
+            <div class="post-info">
+                <h2 class="post-title">Another studdit Post</h2>
+                <p class="post-author">Posted by u/another_user</p>
+            </div>
+            <div class="post-content">
+                <p>Here is another example post to simulate a discussion on studdit.</p>
+            </div>
+            <div class="post-interactions">
+                <button>👍 51</button>
+                <button>💬 5 Comments</button>
+            </div>
+        </article>
+        
+        <!-- Post 4 -->
+        <article class="post">
+            <div class="post-info">
+                <h2 class="post-title">Another studdit Post</h2>
+                <p class="post-author">Posted by u/another_user</p>
+            </div>
+            <div class="post-content">
+                <p>Here is another example post to simulate a discussion on studdit.</p>
+            </div>
+            <div class="post-interactions">
+                <button>👍 51</button>
+                <button>💬 5 Comments</button>
+            </div>
+        </article>
+
+        <!-- Post 5 -->
+        <article class="post">
+            <div class="post-info">
+                <h2 class="post-title">Another studdit Post</h2>
+                <p class="post-author">Posted by u/another_user</p>
+            </div>
+            <div class="post-content">
+                <p>Here is another example post to simulate a discussion on studdit.</p>
+            </div>
+            <div class="post-interactions">
+                <button>👍 51</button>
+                <button>💬 5 Comments</button>
+            </div>
+        </article>
+        </section>
+
+        
+        <aside class="sidebar">
+            <h3>r/CCAPDEV</h3>
+            <p>r/CCAPDEV is the place to discuss the CCAPDEV subject with fellow students</p>
+        
+            <hr style="margin: 10px 5px 10px 5px; text-align:center;">
+
+            Sort posts by: 
+            <select id="sort">
+                <option value="date">Date Posted</option>
+                <option value="rating">Top Rated</option>
+                <option value="comments">Most Commented</option>
+            </select>
+
+
+
+            </select>
+
+        </aside>
+    </main>
+
+    <footer>
+        <p>studdit - All Rights Reserved</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <!--
     <header>
         <nav>
             <ul>
@@ -28,7 +147,7 @@
         </select>
         
         <section class="threads">
-            <!-- Sample Thread -->
+            Sample Thread 
             <div class="thread">
                 <h2>Thread Title 1</h2>
                 <p>Posted by User1 - Date: Nov 1, 2023</p>
@@ -36,6 +155,8 @@
             </div>
         </section>
     </main>
+
+    -->
 
     <script src="js/scripts.js"></script>
 </body>
