@@ -1,43 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studdit Forum - Create Thread</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="studdit-main.html">Home</a></li>
-                <li><a href="subject.html">Subjects</a></li>
-                <li><a href="create-thread.html">Create Thread</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="register.html">Register</a></li>
-            </ul>
-        </nav>
-    </header>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>studdit</title>
+        <link rel="stylesheet" href="css/main-header.css">
+        <link rel="stylesheet" href="css/create-thread.css">
+    </head>
+    <body>
+        <!-- Navbar -->
+        <header class="navbar">
+            <a href="studdit-main.html" class="logo">
+                <h1>studdit</h1>
+            </div>
+            <nav>
+                <input type="text" id="search" placeholder="Search threads...">
+                <a href="subject.html">Subjects</a> 
+                <a href="create-thread.html">Create</a>
+                <a href="login.html">Login</a>
+            </nav>
+        </header>
 
     <main>
         <h1>Create a New Thread</h1>
-        
-        <form id="create-thread">
-            <label for="title">Title:</label>
-            <input type="text" id="title" required>
-            
-            <label for="subject">Subject:</label>
-            <select id="subject"> 
+
+        <h2>or discussion :D</h2>
+
+        <div class="form-container">
+            <form action="", id = "create-thread">
+                <label for="title">Title:</label>
+                <input type="text" id="title" placeholder="Don't overthink it."required>
+
+                <label for="subject">Subject:</label>
+                <select id="subject"> 
                 <!-- Subject List -->
                 <option value="CCAPDEV">CCAPDEV</option>
                 <option value="ST-MATH">ST-MATH</option>
-            </select>
+                <option value="STALGCM">STALGCM</option>
+                <option value="CSARCH1">CSARCH1</option>
+                <option value="CSMATH2">CSMATH2</option>
+                </select>
             
             <label for="content">Content:</label>
-            <textarea id="content" required></textarea>
+            <textarea id="content" placeholder="What's on your mind?"required></textarea>
             
-            <button type="submit">Create Thread</button>
-        </form>
+            <div class="post-interactions">
+                <button type="submit">Post</button>
+                <button>Edit Post Text</button>
+            </div>
+                
+            </form>
+        </div>
     </main>
 
     <script src="js/scripts.js"></script>
