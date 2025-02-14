@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studdit Forum - Register</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>Register</title>
+    <link rel="stylesheet" href="css/register.css">
 </head>
 <body>
     <header>
@@ -12,35 +12,49 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="subject.html">Subjects</a></li>
-                <li><a href="create-thread.html">Create Thread</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="register.html">Register</a></li>
+                <li><a href="thread.html">Threads</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <h1>Register for an Account</h1>
-        
-        <form id="register-form">
-            <label for="username">Username:</label>
-            <input type="text" id="username" required>
-            
-            <label for="password">Password:</label>
-            <input type="password" id="password" required>
-            
-            <label for="bio">Bio:</label>
-            <textarea id="bio"></textarea>
-            
-            <label for="course">Course:</label>
-            <input type="text" id="course">
-            
-            <button type="submit">Register</button>
-        </form>
+    <main class="centered-content">
+        <h1>Account Registration</h1>
+
+        <div class="form-container">
+            <form action="" id="register-form">
+              <div class="column-left">
+                <label for="name">Username:</label>
+                <input type="text" name="name" id="name" required>
+
+                <label for="password-input">Password:</label>
+                <input type="password" id="password-input" required>
+
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" required>
+
+                <label for="course">Course:</label>
+                <input type="number" name="course" id="course" required>
+
+                <label for="bio-input">Bio:</label>
+                <textarea id="bio-input" rows="4" required></textarea>
+              </div>
+
+              <div class="column-right">
+                <label for="photo">Profile Picture:</label>
+                <input type="file" name="photo" id="photo" onchange="displayProfilePic()">
+                <img src="#" alt="Profile Picture" style="display: none;" id="profilePic">
+              </div>
+            </form>
+            <div class="submit-button-container">
+                <button type="button" onclick="submitForm()">Submit</button>
+            </div>
+    
+        </div>
 
         <p>Already have an account? <a href="login.html">Login here.</a></p>
     </main>
 
-    <script src="js/scripts.js"></script>
+    <script src="../js/scripts.js"></script>
+    <script src="../js/register.js"></script>
 </body>
 </html>
