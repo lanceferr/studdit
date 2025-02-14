@@ -47,3 +47,12 @@
 .navbar nav a:hover {
     text-decoration: underline;
 }
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    width: 100%;
+}
