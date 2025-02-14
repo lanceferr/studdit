@@ -68,11 +68,23 @@ main {
 
 .post-title {
     font-size: 24px;
-    margin-bottom: 10px;
 }
 
 .post-author {
     color: #888;
+}
+
+.post-subinfo {
+    display: flex;
+    justify-content: space-between;
+    font-size:12px; 
+    color: #808080;
+}
+
+.post-subject {
+    font-size: 10px;
+    font-weight: bold;
+    float: left;
 }
 
 .post-content {
