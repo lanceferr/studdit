@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    background-color: #090428;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo h1 {
+    font-size: 24px;
+    text-decoration: none;
+    color: white;
+}
+
+.navbar nav{
+    margin: 0 15px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.navbar nav input#search {
+    width: 200px;
+    height: 20px;
+    border: none;
+    padding: 5px 10px;
+    font-size: 16px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+}
+
+
+.navbar nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+.navbar nav a:hover {
+    text-decoration: underline;
+}
