@@ -61,6 +61,11 @@ main {
     gap: 10px;
 }
 
+.post h2 a{
+    text-decoration: none;
+    color: #090428;
+}
+
 .post-info {
     display: flex;
     justify-content: space-between;
