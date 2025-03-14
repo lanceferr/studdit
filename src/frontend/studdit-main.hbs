@@ -1,0 +1,68 @@
+{{!-- Layout for the main Studdit page --}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>studdit</title>
+    <link rel="stylesheet" href="../css/studdit-main.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <a href="/" class="logo">
+            <h1>studdit</h1>
+        </a>
+        <nav>
+            <input type="text" id="search" placeholder="Search threads...">
+            <a href="subjects.hbs">Subjects</a> 
+            <a href="create-thread.hbs">Create</a>
+            <a href="login.hbs">Login</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="posts">
+            {{#each posts}}
+            <article class="post">
+                <div class="post-info">
+                    <h2 class="post-title"><a href="/thread/{{this._id}}">{{this.title}}</a></h2>
+                    <p class="post-author">
+                        <a href="/profile/{{this.author._id}}">Posted by u/{{this.author.username}}</a>
+                    </p>
+                </div>
+
+                <div class="post-subinfo">
+                    <p>in <a href="/subject/{{this.subject._id}}">r/{{this.subject.name}}</a>, {{this.date}}</p>
+                </div>
+
+                <div class="post-content">
+                    <p>{{this.content}}</p>
+                </div>
+                <div class="post-interactions">
+                    <button data-post-id="{{this._id}}">👍 {{this.likes}}</button>
+                    <button data-post-id="{{this._id}}">💬 {{this.comments.length}} Comments</button>
+                </div>
+            </article>
+            {{/each}}
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h3>Top Subjects</h3>
+            <ul>
+                {{#each subjects}}
+                <li><a href="/subject/{{this._id}}">r/{{this.name}}</a></li>
+                {{/each}}
+            </ul>
+        </aside>
+    </main>
+
+    <footer>
+        <p>studdit - All Rights Reserved</p>
+    </footer>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
