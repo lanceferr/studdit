@@ -3,6 +3,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const User = require('../models/users'); // Import the User model
 const postRoutes = require('./routes/postRoutes');
+const commentRoutes = require('./routes/commentRoutes');
+const subjectRoutes = require('./routes/subjectRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 app.use(express.json());
@@ -16,6 +19,9 @@ mongoose.connect('mongodb+srv://admin:admin@testapi.8zbk4.mongodb.net/Node-API?r
 });
 
 app.use('/posts', postRoutes);
+app.use('/comments', commentRoutes);
+app.use('/subjects', subjectRoutes);
+app.use('/users', userRoutes);
 
 // Example route to fetch a user profile
 app.get('/api/profile/:username', async (req, res) => {
