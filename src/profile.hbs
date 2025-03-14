@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/main-header.css">
+    <style>
+        article.post {
+            width: 95%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <a href="studdit-main.html" class="logo">
+            <h1>studdit</h1>
+        </a>
+        <nav>
+            <input type="text" id="search" placeholder="Search threads...">
+            <a href="subject.html">Subjects</a> 
+            <a href="create-thread.html">Create</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <!-- Sidenav -->
+    <div class="sidenav">
+        <div class="profile">
+            <img src="assets/user-avatar.png" alt="" width="100" height="100">
+
+            <div class="name">
+                {{username}}
+            </div>
+            <div class="course">
+                {{course}}
+            </div>
+        </div>
+    </div>
+    <!-- End -->
+
+    <!-- Main -->
+    <div class="main">
+        <h2>Profile</h2>
+        <div class="card">
+            <div class="card-body">
+                <i class="fa fa-pen fa-xs edit"></i>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td>:</td>
+                            <td>{{username}}</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>:</td>
+                            <td>{{email}}</td>
+                        </tr>
+                        <tr>
+                            <td>Bio</td>
+                            <td>:</td>
+                            <td>{{bio}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h2>Recent Posts and Comments</h2>
+        <div class="card">
+            <div class="card-body">
+                <section class="posts">
+                    {{#each posts}}
+                    <article class="post">
+                        <div class="post-info">
+                            <h2 class="post-title"><a href="{{postLink}}">{{title}}</a></h2>
+                            <p class="post-author">Posted by u/{{author}}</p>
+                        </div>
+
+                        <div class="post-subinfo">
+                            <p>in <a href="{{subjectLink}}">{{subject}}</a>, {{date}}</p>
+                        </div>
+
+                        <div class="post-content">
+                            <p>{{content}}</p>
+                        </div>
+                        <div class="post-interactions">
+                            <button>👍 {{likes}}</button>
+                            <button>💬 {{comments}} Comments</button>
+                        </div>
+                    </article>
+                    {{/each}}
+                </section>
+            </div>
+        </div>
+    </div>
+    <!-- End -->
+
+    <footer>
+        <p>studdit - All Rights Reserved</p>
+    </footer>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>
