@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studdit Forum - Thread</title>
+    <link rel="stylesheet" href="css/thread.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <a href="studdit-main.html" class="logo">
+            <h1>studdit</h1>
+        </a>
+        <nav>
+            <input type="text" id="search" placeholder="Search threads...">
+            <a href="subject.html">Subjects</a> 
+            <a href="create-thread.html">Create</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="posts">
+            <!-- Post -->
+            <article class="post">
+                <div class="post-info">
+                    <h2 class="post-title">{{title}}</h2>
+                    <p class="post-author"><a href="profile.html">Posted by u/{{author}}</a></p>
+                </div>
+
+                <div class="post-subinfo">
+                    <p>in <a href="subject.html">r/{{subject}}</a>, {{time}}, {{date}}</p>
+                </div>
+
+                <div class="post-content">
+                    <p>{{content}}</p>
+                </div>
+                <div class="post-interactions">
+                    <button>👍 {{like}}</button>
+                </div>
+
+                <!-- Comments Section -->
+                <div class="comments">
+                    <h3>Comments</h3>
+                    <div class="comment-box">
+                        <textarea id="comment-input" placeholder="What are your thoughts?"></textarea>
+                        <button onclick="addComment()">Comment</button>
+                    </div>
+                    <ul class="comment-list">
+                        {{#each comments}}
+                        <li class="comment">
+                            <p class="comment-author"><a href="profile.html">u/{{comment.author}}</a></p>
+                            <p class="comment-content">{{comment.content}}</p>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>
