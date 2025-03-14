@@ -7,6 +7,7 @@ const postSchema = new mongoose.Schema({
     date: { type: Date, default: Date.now },
     likes: { type: Number, default: 0 },
     comments: [{ type: mongoose.Schema.Types.ObjectID, ref: 'Comment' }], // Reference to the Comment model :3c
+    subject: { type: mongoose.Schema.Types.ObjectID, ref: 'Subject', required: true }, // Reference to the Subject model :3
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true } // Reference to the User model
 });
 
