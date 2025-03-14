@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>studdit</title>
+    <link rel="stylesheet" href="/css/create-thread.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <a href="/" class="logo">
+            <h1>studdit</h1>
+        </a>
+        <nav>
+            <input type="text" id="search" placeholder="Search threads...">
+            <a href="subjects.hbs">Subjects</a> 
+            <a href="create-thread.hbs">Create</a>
+            <a href="login.hbs">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Create a New Thread</h1>
+        <h2>or discussion :D</h2>
+
+        <div class="form-container">
+            <form id="create-thread-form">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" placeholder="Don't overthink it." required>
+
+                <label for="subject">Subject:</label>
+                <select id="subject" name="subject"> 
+                    {{#each subjects}}
+                        <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select>
+
+                <label for="content">Content:</label>
+                <textarea id="content" name="content" placeholder="What's on your mind?" required></textarea>
+
+                <div class="post-interactions">
+                    <button type="submit">Post</button>
+                    <button type="reset">Clear</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('create-thread-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const title = document.getElementById('title').value;
+            const subject = document.getElementById('subject').value;
+            const content = document.getElementById('content').value;
+
+            const response = await fetch('/threads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, subject, content })
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert('Thread created successfully!');
+                window.location.href = '/';
+            } else {
+                alert('Error: ' + result.message);
+            }
+        });
+    </script>
+</body>
+</html>

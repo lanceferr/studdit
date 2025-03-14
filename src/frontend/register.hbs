@@ -14,9 +14,9 @@
         </a>
         <nav>
             <input type="text" id="search" placeholder="Search threads...">
-            <a href="/subjects">Subjects</a> 
-            <a href="/create-thread">Create</a>
-            <a href="/login">Login</a>
+            <a href="subjects.hbs">Subjects</a> 
+            <a href="create-thread.hbs">Create</a>
+            <a href="login.hbs">Login</a>
         </nav>
     </header>
 
@@ -54,7 +54,7 @@
             </form>
         </div>
 
-        <p>Already have an account? <a href="/login">Login here.</a></p>
+        <p>Already have an account? <a href="login.hbs">Login here.</a></p>
     </main>
 
     <footer>
@@ -99,7 +99,7 @@
                 const data = await response.json();
                 if (response.ok) {
                     alert("Registration successful!");
-                    window.location.href = "/login"; // Redirect to login page
+                    window.location.href = "login.hbs"; // Redirect to login page
                 } else {
                     alert(data.message || "Registration failed");
                 }

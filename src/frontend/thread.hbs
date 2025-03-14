@@ -14,51 +14,58 @@
         </a>
         <nav>
             <input type="text" id="search" placeholder="Search threads...">
-            <a href="subject.html">Subjects</a> 
-            <a href="create-thread.html">Create</a>
-            <a href="login.html">Login</a>
+            <a href="subject.hbs">Subjects</a> 
+            <a href="create-thread.hbs">Create</a>
+            <a href="login.hbs">Login</a>
         </nav>
     </header>
 
     <main>
         <section class="posts">
-            <!-- Post -->
+            {{#each posts}}
             <article class="post">
                 <div class="post-info">
-                    <h2 class="post-title">{{title}}</h2>
-                    <p class="post-author"><a href="profile.html">Posted by u/{{author}}</a></p>
+                    <h2 class="post-title">{{this.title}}</h2>
+                    <p class="post-author">
+                        <a href="/profile/{{this.author._id}}">Posted by u/{{this.author.username}}</a>
+                    </p>
                 </div>
 
                 <div class="post-subinfo">
-                    <p>in <a href="subject.html">r/{{subject}}</a>, {{time}}, {{date}}</p>
+                    <p>in <a href="/subject/{{this.subject._id}}">r/{{this.subject.name}}</a>, {{this.date}}</p>
                 </div>
 
                 <div class="post-content">
-                    <p>{{content}}</p>
-                </div>
-                <div class="post-interactions">
-                    <button>👍 {{like}}</button>
+                    <p>{{this.content}}</p>
                 </div>
 
-                <!-- Comments Section -->
+                <div class="post-interactions">
+                    <button>👍 {{this.likes}}</button>
+                </div>
+
+                {{!-- Comments Section --}}
                 <div class="comments">
                     <h3>Comments</h3>
                     <div class="comment-box">
                         <textarea id="comment-input" placeholder="What are your thoughts?"></textarea>
-                        <button onclick="addComment()">Comment</button>
+                        <button onclick="addComment('{{this._id}}')">Comment</button>
                     </div>
                     <ul class="comment-list">
-                        {{#each comments}}
+                        {{#each this.comments}}
                         <li class="comment">
-                            <p class="comment-author"><a href="profile.html">u/{{comment.author}}</a></p>
-                            <p class="comment-content">{{comment.content}}</p>
+                            <p class="comment-author">
+                                <a href="/profile/{{this.author._id}}">u/{{this.author.username}}</a>
+                            </p>
+                            <p class="comment-content">{{this.content}}</p>
                         </li>
                         {{/each}}
                     </ul>
                 </div>
             </article>
+            {{/each}}
         </section>
     </main>
+
 
     <script src="js/scripts.js"></script>
 </body>
