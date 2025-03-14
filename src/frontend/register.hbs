@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="/css/register.css">
+    <link rel="stylesheet" href="/css/main-header.css">
+</head>
+<body>
+    <header class="navbar">
+        <a href="/" class="logo">
+            <h1>studdit</h1>
+        </a>
+        <nav>
+            <input type="text" id="search" placeholder="Search threads...">
+            <a href="/subjects">Subjects</a> 
+            <a href="/create-thread">Create</a>
+            <a href="/login">Login</a>
+        </nav>
+    </header>
+
+    <main class="centered-content">
+        <h1>Sign up for Studdit</h1>
+
+        <div class="form-container">
+            <form id="register-form">
+                <div class="column-left">
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" id="username" required>
+
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" required>
+
+                    <label for="course">Course:</label>
+                    <input type="text" name="course" id="course" required>
+
+                    <label for="bio">Bio:</label>
+                    <textarea id="bio" name="bio" rows="4" required></textarea>
+                </div>
+
+                <div class="column-right">
+                    <label for="avatar">Profile Picture:</label>
+                    <input type="file" name="avatar" id="avatar" onchange="displayProfilePic()">
+                    <img src="#" alt="Profile Picture" style="display: none;" id="profilePic">
+                </div>
+
+                <div class="submit-button-container">
+                    <button type="submit">Register</button>
+                </div>
+            </form>
+        </div>
+
+        <p>Already have an account? <a href="/login">Login here.</a></p>
+    </main>
+
+    <footer>
+        <p>studdit - All Rights Reserved</p>
+    </footer>
+
+    <script>
+        function displayProfilePic() {
+            const input = document.getElementById("avatar");
+            const img = document.getElementById("profilePic");
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                    img.style.display = "block";
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        document.getElementById("register-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const formData = new FormData();
+            formData.append("username", document.getElementById("username").value);
+            formData.append("password", document.getElementById("password").value);
+            formData.append("email", document.getElementById("email").value);
+            formData.append("course", document.getElementById("course").value);
+            formData.append("bio", document.getElementById("bio").value);
+            
+            const avatarFile = document.getElementById("avatar").files[0];
+            if (avatarFile) {
+                formData.append("avatar", avatarFile);
+            }
+
+            try {
+                const response = await fetch("/api/users", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert("Registration successful!");
+                    window.location.href = "/login"; // Redirect to login page
+                } else {
+                    alert(data.message || "Registration failed");
+                }
+            } catch (error) {
+                console.error("Error registering user:", error);
+                alert("An error occurred, please try again.");
+            }
+        });
+    </script>
+</body>
+</html>
