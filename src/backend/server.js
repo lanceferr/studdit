@@ -1,20 +1,21 @@
 // server.js
 const express = require('express');
 const mongoose = require('mongoose');
-const User = require('./db/users'); // Import the User model
+const User = require('../models/users'); // Import the User model
+const postRoutes = require('./routes/postRoutes');
 
 const app = express();
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/studdit', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
+mongoose.connect('mongodb+srv://admin:admin@testapi.8zbk4.mongodb.net/Node-API?retryWrites=true&w=majority&appName=TestAPI')
+.then(() => {
     console.log('Connected to MongoDB');
 }).catch(err => {
     console.error('Error connecting to MongoDB', err);
 });
+
+app.use('/posts', postRoutes);
 
 // Example route to fetch a user profile
 app.get('/api/profile/:username', async (req, res) => {
