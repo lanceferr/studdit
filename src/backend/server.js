@@ -6,6 +6,7 @@ const postRoutes = require('./routes/postRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const subjectRoutes = require('./routes/subjectRoutes');
 const userRoutes = require('./routes/userRoutes');
+const threadRoutes = require('./routes/threadRoutes');
 
 const app = express();
 app.use(express.json());
@@ -22,6 +23,7 @@ app.use('/posts', postRoutes);
 app.use('/comments', commentRoutes);
 app.use('/subjects', subjectRoutes);
 app.use('/users', userRoutes);
+app.use('/threads', threadRoutes);
 
 // Example route to fetch a user profile
 app.get('/api/profile/:username', async (req, res) => {
