@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f0f0f0;
+}
+
+.navbar {
+    background-color: #090428;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.navbar .logo h1 {
+    font-size: 24px;
+    text-decoration: none;
+    color: white;
+}
+
+.navbar nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+.navbar nav a:hover {
+    text-decoration: underline;
+}
+
+.post-interactions button {
+    background: #0079d3;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.post-interactions button:hover {
+    background-color: #005ea1;
+}
+
+main {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto 60px;
+    padding: 40px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+h2{
+    text-align: center;
+    font-size: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+input:not(#search), select, textarea{
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+textarea:not(#search) {
+    resize: vertical;
+    height: 300px;
+}
+
+button {
+    margin-top: 15px;
+    font-size: 16px;
+    justify-content: flex-end;
+}
+
