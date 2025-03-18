@@ -13,7 +13,7 @@
             gap: 20px;
         }
     </style>
-    <link rel="stylesheet" href="../css/main-header.css">
+    <link rel="stylesheet" href="css/main-header.css">
 </head>
 <body>
     <header class="navbar">
@@ -32,17 +32,16 @@
         <h1>Login to Studdit</h1>
 
         <div class="form-container">
-            <form id="login-form">
+            <form action="">
                 <label for="username">Username:</label>
                 <input type="text" name="username" id="username" required>
 
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
-
-                <div class="submit-button-container">
-                    <button type="submit">Submit</button>
-                </div>
             </form>
+            <div class="submit-button-container">
+                <button type="submit">Submit</button>
+            </div>
         </div>
 
         <p>Don't have an account? <a href="/register">Register here.</a></p>

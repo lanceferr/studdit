@@ -95,6 +95,7 @@ button {
     cursor: pointer;
     font-size: 16px;
     width: 100%; 
+    align-self: center;
 }
 
 button:hover {
@@ -116,7 +117,7 @@ img {
 }
 
 .submit-button-container {
-    display: block;
+    display: flex;
     align-self: center;
     width: 50%; 
     margin-top: 20px; 
