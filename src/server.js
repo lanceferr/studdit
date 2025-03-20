@@ -1,11 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const exphbs = require('express-handlebars');
+const cors = require("cors");
 const path = require('path');
 require('dotenv').config(); // Load environment variables
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 // Set Handlebars as the view engine
 app.engine(
@@ -18,13 +21,9 @@ app.engine(
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'frontend')); // Corrected views directory
 
-// Connect to MongoDB
-mongoose.connect('mongodb+srv://admin:admin@cluster0.8zbk4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
-.then(() => console.log('Connected to MongoDB'))
-.catch(err => console.error('Error connecting to MongoDB', err));
-
 // Serve static files (CSS, JS, Images)
 app.use(express.static(path.join(__dirname, 'frontend')));
+app.use("/uploads", express.static("uploads"));
 
 // Define frontend routes
 app.get('/', (req, res) => res.render('studdit-main'));
@@ -47,6 +46,11 @@ app.use('/comments', commentRoutes);
 app.use('/subjects', subjectRoutes);
 app.use('/users', userRoutes);
 app.use('/threads', threadRoutes);
+
+// Connect to MongoDB
+mongoose.connect('mongodb+srv://admin:admin@cluster0.8zbk4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+.then(() => console.log('Connected to MongoDB'))
+.catch(err => console.error('Error connecting to MongoDB', err));
 
 // Start the server
 app.listen(3000, () => {

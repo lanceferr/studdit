@@ -47,10 +47,11 @@
                     <input type="file" name="avatar" id="avatar" onchange="displayProfilePic()">
                     <img src="#" alt="Profile Picture" style="display: none;" id="profilePic">
                 </div>
+
+                <div class="submit-button-container">
+                    <button type="submit">Register</button>
+                </div>
             </form>
-            <div class="submit-button-container">
-                <button type="submit">Register</button>
-            </div>
         </div>
 
         <p>Already have an account? <a href="/login">Login here.</a></p>
@@ -74,39 +75,33 @@
             }
         }
 
-        document.getElementById("register-form").addEventListener("submit", async function(event) {
-            event.preventDefault();
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("register-form").addEventListener("submit", async function (event) {
+                event.preventDefault(); // Prevent page refresh
 
-            const formData = new FormData();
-            formData.append("username", document.getElementById("username").value);
-            formData.append("password", document.getElementById("password").value);
-            formData.append("email", document.getElementById("email").value);
-            formData.append("course", document.getElementById("course").value);
-            formData.append("bio", document.getElementById("bio").value);
-            
-            const avatarFile = document.getElementById("avatar").files[0];
-            if (avatarFile) {
-                formData.append("avatar", avatarFile);
-            }
+                const formData = new FormData(this);
 
-            try {
-                const response = await fetch("/api/users", {
-                    method: "POST",
-                    body: formData
-                });
+                try {
+                    const response = await fetch("/users", {
+                        method: "POST",
+                        body: formData
+                    });
 
-                const data = await response.json();
-                if (response.ok) {
-                    alert("Registration successful!");
-                    window.location.href = "/login"; // Redirect to login page
-                } else {
-                    alert(data.message || "Registration failed");
+                    const data = await response.json();
+                    if (response.ok) {
+                        alert("Registration successful!");
+                        window.location.href = "/login";
+                    } else {
+                        alert(data.message || "Registration failed");
+                    }
+                } catch (error) {
+                    console.error("Error registering user:", error);
+                    alert("An error occurred, please try again.");
                 }
-            } catch (error) {
-                console.error("Error registering user:", error);
-                alert("An error occurred, please try again.");
-            }
+            });
         });
+
+
     </script>
 </body>
 </html>

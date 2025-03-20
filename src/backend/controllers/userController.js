@@ -1,15 +1,31 @@
 const User = require('../models/users');
+const Post = require("../models/posts");
 
 const createUser = async (req, res) => {
     try {
-        const { username, password, email, bio, course, avatar } = req.body;
-        const newUser = new User({ username, password, email, bio, course, avatar });
+        const { username, password, email, bio, course } = req.body;
+        const avatarPath = req.file ? req.file.path : null;
+
+        // Create a new user
+        const newUser = new User({
+            username,
+            password,
+            email,
+            bio,
+            course,
+            avatar: avatarPath
+        });
+
+        // Save user to the database
         await newUser.save();
-        res.status(201).json({ message: 'User created successfully', user: newUser });
+
+        res.status(201).json({ message: "User registered successfully!" });
     } catch (error) {
-        res.status(500).json({ message: 'Error creating user', error });
+        console.error("Error registering user:", error);
+        res.status(500).json({ message: "Server error" });
     }
 };
+
 
 const getAllUsers = async (req, res) => {
     try {
@@ -53,10 +69,67 @@ const deleteUser = async (req, res) => {
     }
 };
 
+const loginUser = async (req, res) => {
+    try {
+        const { username, password } = req.body;
+
+        // Check if user exists
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(401).json({ message: "User not found" });
+        }
+
+        // Since passwords are NOT hashed yet, use direct comparison
+        if (user.password !== password) {
+            return res.status(401).json({ message: "Invalid credentials" });
+        }
+
+        res.json({ message: "Login successful", user });
+    } catch (error) {
+        console.error("Error during login:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+const getUserProfile = async (req, res) => {
+    try {
+        console.log("Fetching profile for:", req.params.username);
+
+        const user = await User.findOne({ username: req.params.username });
+
+        if (!user) {
+            console.log("User not found");
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        console.log("User found:", user);
+
+        // Fetch user's recent posts
+        const posts = await Post.find({ author: user._id }).sort({ createdAt: -1 }).limit(5);
+
+        console.log("Posts found:", posts.length > 0 ? posts : "No posts available");
+
+        res.render("profile", {
+            username: user.username,
+            email: user.email,
+            bio: user.bio,
+            course: user.course,
+            avatar: user.avatar || "/assets/user-avatar.png",
+            posts,
+            hasPosts: posts.length > 0 // 🔥 New flag to check if posts exist
+        });
+    } catch (error) {
+        console.error("Error fetching profile:", error);
+        res.status(500).json({ message: "Internal Server Error", error });
+    }
+};
+
 module.exports = {
     createUser,
     getAllUsers,
     getUserById,
     updateUser,
-    deleteUser
+    deleteUser,
+    loginUser,
+    getUserProfile
 };

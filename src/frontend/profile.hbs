@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Page</title>
 
-    <link rel="stylesheet" href="css/profile.css">
-    <link rel="stylesheet" href="css/main-header.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/main-header.css">
     <style>
         article.post {
             width: 95%;
@@ -30,7 +30,7 @@
     <!-- Sidenav -->
     <div class="sidenav">
         <div class="profile">
-            <img src="assets/user-avatar.png" alt="" width="100" height="100">
+            <img src="{{avatar}}" alt="Profile Picture" width="100" height="100">
 
             <div class="name">
                 {{username}}
@@ -74,26 +74,28 @@
         <div class="card">
             <div class="card-body">
                 <section class="posts">
-                    {{#each posts}}
-                    <article class="post">
-                        <div class="post-info">
-                            <h2 class="post-title"><a href="{{postLink}}">{{title}}</a></h2>
-                            <p class="post-author">Posted by u/{{author}}</p>
-                        </div>
-
-                        <div class="post-subinfo">
-                            <p>in <a href="{{subjectLink}}">{{subject}}</a>, {{date}}</p>
-                        </div>
-
-                        <div class="post-content">
-                            <p>{{content}}</p>
-                        </div>
-                        <div class="post-interactions">
-                            <button>👍 {{likes}}</button>
-                            <button>💬 {{comments}} Comments</button>
-                        </div>
-                    </article>
-                    {{/each}}
+                    {{#if hasPosts}}
+                        {{#each posts}}
+                        <article class="post">
+                            <div class="post-info">
+                                <h2 class="post-title"><a href="{{postLink}}">{{title}}</a></h2>
+                                <p class="post-author">Posted by u/{{author}}</p>
+                            </div>
+                            <div class="post-subinfo">
+                                <p>in <a href="{{subjectLink}}">{{subject}}</a>, {{date}}</p>
+                            </div>
+                            <div class="post-content">
+                                <p>{{content}}</p>
+                            </div>
+                            <div class="post-interactions">
+                                <button>👍 {{likes}}</button>
+                                <button>💬 {{comments}} Comments</button>
+                            </div>
+                        </article>
+                        {{/each}}
+                    {{else}}
+                        <p style="text-align: center; color: gray;">No posts available</p>
+                    {{/if}}
                 </section>
             </div>
         </div>
@@ -104,6 +106,6 @@
         <p>studdit - All Rights Reserved</p>
     </footer>
 
-    <script src="js/scripts.js"></script>
+    <script src="/js/scripts.js"></script>
 </body>
 </html>

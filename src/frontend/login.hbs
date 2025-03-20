@@ -5,14 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studdit Forum - Login</title>
     <link rel="stylesheet" href="css/register.css">
-    <style>
-        input {
-            width: 70%;
-        }
-        form {
-            gap: 20px;
-        }
-    </style>
     <link rel="stylesheet" href="css/main-header.css">
 </head>
 <body>
@@ -32,16 +24,17 @@
         <h1>Login to Studdit</h1>
 
         <div class="form-container">
-            <form action="">
+            <form id="login-form">
                 <label for="username">Username:</label>
                 <input type="text" name="username" id="username" required>
 
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
+
+                <div class="submit-button-container">
+                    <button type="submit">Login</button>
+                </div>
             </form>
-            <div class="submit-button-container">
-                <button type="submit">Submit</button>
-            </div>
         </div>
 
         <p>Don't have an account? <a href="/register">Register here.</a></p>
@@ -58,16 +51,18 @@
             const password = document.getElementById("password").value;
 
             try {
-                const response = await fetch("/api/login", {
+                const response = await fetch("/users/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ username, password })
                 });
 
                 const data = await response.json();
+                console.log("Server Response:", data); // Debugging
+
                 if (response.ok) {
                     alert("Login successful!");
-                    window.location.href = "/dashboard"; // Redirect to user dashboard
+                    window.location.href = `/users/profile/${username}`;
                 } else {
                     alert(data.message || "Login failed");
                 }
