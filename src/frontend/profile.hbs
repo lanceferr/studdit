@@ -21,7 +21,6 @@
         </a>
         <nav>
             <input type="text" id="search" placeholder="Search threads...">
-            <a href="/subjects">Subjects</a> 
             <a href="/create-thread" id="create-thread-link">Create</a>
             <a href="/login">Login</a>
         </nav>
@@ -89,7 +88,9 @@
                             </div>
                             <div class="post-interactions">
                                 <button>👍 {{likes}}</button>
-                                <button>💬 {{comments}} Comments</button>
+                                <a href="/thread/{{this._id}}">
+                                    <button data-post-number="{{this._id}}">💬 {{this.comments.length}} Comments</button>
+                                </a>
                             </div>
                         </article>
                         {{/each}}
