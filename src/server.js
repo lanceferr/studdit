@@ -66,7 +66,7 @@ app.get('/create-thread', async (req, res) => {
 });
 
 app.get('/login', (req, res) => res.render('login'));
-app.get('/profile', (req, res) => res.render('profile'));
+app.get('/profile', (req, res) => {res.render('profile')});
 app.get('/register', (req, res) => res.render('register'));
 app.get('/thread', (req, res) => res.render('thread'));
 app.get('/thread/:id', postController.getPostView);
