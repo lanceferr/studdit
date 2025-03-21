@@ -70,6 +70,21 @@ app.get('/profile', (req, res) => res.render('profile'));
 app.get('/register', (req, res) => res.render('register'));
 app.get('/thread', (req, res) => res.render('thread'));
 app.get('/thread/:id', postController.getPostView);
+app.get('/:username/create-thread', async (req, res) => {
+    try {
+      const subjects = await Subject.find().lean();
+      const safeSubjects = subjects.map(s => ({
+        id: s._id,
+        name: s.name,
+        description: s.description
+      }));
+      res.render('create-thread', { subjects: safeSubjects });
+    } catch (error) {
+      console.error('Error loading subjects:', error);
+      res.status(500).send('Error loading subjects');
+    }
+  });
+  
 
 // Import and use API routes
 const postRoutes = require('./backend/routes/postRoutes');
