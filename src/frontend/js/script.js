@@ -63,3 +63,35 @@ async function addComment(postId) {
     }
   }
   
+document.addEventListener('DOMContentLoaded', () => {
+    const likeButtons = document.querySelectorAll('.like-button');
+  
+    likeButtons.forEach(button => {
+      button.addEventListener('click', async () => {
+        const postId = button.getAttribute('data-post-id');
+  
+        try {
+          const response = await fetch(`/posts/${postId}/like`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+  
+          const data = await response.json();
+  
+          if (response.ok) {
+            // ✅ Update the button to show new like count
+            button.textContent = `👍 ${data.likes}`;
+          } else {
+            alert(data.message || 'Failed to like post.');
+          }
+        } catch (error) {
+          console.error('Error liking post:', error);
+          alert('Something went wrong.');
+        }
+      });
+    });
+});
+  
+  

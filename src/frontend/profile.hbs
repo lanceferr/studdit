@@ -87,7 +87,7 @@
                                 <p>{{content}}</p>
                             </div>
                             <div class="post-interactions">
-                                <button>👍 {{likes}}</button>
+                                <button data-post-id="{{this._id}}" class="like-button">👍 {{this.likes}}</button>
                                 <a href="/thread/{{this._id}}">
                                     <button data-post-number="{{this._id}}">💬 {{this.comments.length}} Comments</button>
                                 </a>

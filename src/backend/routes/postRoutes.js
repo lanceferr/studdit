@@ -8,7 +8,7 @@ router.get('/', getAllPosts);
 router.get('/:id', getPostById);
 router.put('/:id', updatePost);
 router.delete('/:id', deletePost);
-router.post('/:id/like', likePost);
+router.put('/:id/like', likePost);
 router.post('/:id/comments', addComment);
 
 module.exports = router;
