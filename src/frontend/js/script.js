@@ -29,3 +29,37 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 });
+
+async function addComment(postId) {
+    const textarea = document.querySelector(`.comment-input[data-post-id="${postId}"]`);
+    const content = textarea.value.trim();
+    const author = localStorage.getItem('userId'); // optional — fallback will be handled on backend
+  
+    if (!content) {
+      alert("Please enter a comment");
+      return;
+    }
+  
+    try {
+      const response = await fetch('/comments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ content, author, post: postId })
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        alert('Comment added!');
+        location.reload(); // or dynamically add to DOM
+      } else {
+        alert(result.message || 'Failed to post comment.');
+      }
+    } catch (error) {
+      console.error('Error posting comment:', error);
+      alert('An error occurred.');
+    }
+  }
+  

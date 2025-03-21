@@ -6,6 +6,7 @@ const path = require('path');
 require('dotenv').config(); // Load environment variables
 
 const Post = require('./backend/models/posts');
+const postController = require('./backend/controllers/postController');
 const Subject = require('./backend/models/subjects'); 
 
 const app = express();
@@ -33,7 +34,11 @@ app.get('/', async (req, res) => {
     try {
         const posts = await Post.find()
             .populate('author', 'username')
-            .populate('comments')
+            .populate('subject', 'name')
+            .populate({
+                path: 'comments',
+                populate: { path: 'author', select: 'username' }
+            })
             .lean();
 
         const subjects = await Subject.find().lean();
@@ -63,7 +68,8 @@ app.get('/create-thread', async (req, res) => {
 app.get('/login', (req, res) => res.render('login'));
 app.get('/profile', (req, res) => res.render('profile'));
 app.get('/register', (req, res) => res.render('register'));
-app.get('/thread', (req, res) => res.render('thread')); // Added missing route
+app.get('/thread', (req, res) => res.render('thread'));
+app.get('/thread/:id', postController.getPostView);
 
 // Import and use API routes
 const postRoutes = require('./backend/routes/postRoutes');

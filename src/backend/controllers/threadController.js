@@ -1,4 +1,5 @@
 const Thread = require('../models/threads');
+const Comment = require('../models/comments');
 
 
 exports.getAllThreads = async (req, res) => {
@@ -12,11 +13,24 @@ exports.getAllThreads = async (req, res) => {
 
 exports.getThreadById = async (req, res) => {
     try {
-        const thread = await Thread.findById(req.params.id);
-        if (!thread) return res.status(404).json({ message: 'Thread not found' });
-        res.status(200).json(thread);
+        const thread = await Thread.findById(req.params.id)
+            .populate('author', 'username')
+            .populate('subject', 'name')
+            .lean();
+
+        if (!thread) return res.status(404).send('Thread not found');
+
+        const comments = await Comment.find({ post: thread._id })
+            .populate('author', 'username')
+            .lean();
+
+        // Manually attach comments to thread so the template can loop over them
+        thread.comments = comments;
+
+        res.render('thread', { posts: [thread] }); // thread.hbs expects an array of posts
     } catch (error) {
-        res.status(500).json({ message: 'Error fetching thread', error });
+        console.error('Error fetching thread:', error);
+        res.status(500).send('Error loading thread');
     }
 };
 

@@ -1,4 +1,5 @@
 const Subject = require('../models/subjects');
+const Post = require('../models/posts');
 
 // Get all subjects
 const getSubjects = async (req, res) => {
@@ -55,4 +56,33 @@ const deleteSubject = async (req, res) => {
   }
 };
 
-module.exports = { getSubjects, getSubjectById, createSubject, updateSubject, deleteSubject };
+const getSubjectByNameWithPosts = async (req, res) => {
+  try {
+    const subject = await Subject.findOne({ name: new RegExp('^' + req.params.name + '$', 'i') }).lean();
+    if (!subject) return res.status(404).send('Subject not found');
+
+    const posts = await Post.find({ subject: subject._id })
+      .populate('author', 'username')
+      .populate('subject', 'name')
+      .populate({
+        path: 'comments',
+        populate: { path: 'author', select: 'username' }
+      })
+      .lean();
+
+    res.render('subject', { subject, posts });
+  } catch (error) {
+    console.error('Error loading subject page:', error);
+    res.status(500).send('Server error');
+  }
+};
+
+
+module.exports = { 
+  getSubjects, 
+  getSubjectById, 
+  createSubject, 
+  updateSubject, 
+  deleteSubject, 
+  getSubjectByNameWithPosts 
+};

@@ -115,7 +115,17 @@ const getUserProfile = async (req, res) => {
         console.log("User found:", user);
 
         // Fetch user's recent posts
-        const posts = await Post.find({ author: user._id }).sort({ createdAt: -1 }).limit(5);
+        const posts = await Post.find({ author: user._id })
+            .sort({ createdAt: -1 })
+            .limit(5)
+            .populate('subject', 'name')
+            .populate('subject', 'name')
+            .populate({
+                path: 'comments',
+                populate: { path: 'author', select: 'username' }
+            })
+            .lean();
+
 
         console.log("Posts found:", posts.length > 0 ? posts : "No posts available");
 

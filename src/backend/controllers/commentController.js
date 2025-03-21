@@ -1,22 +1,33 @@
 const Comment = require('../models/comments');
 const Post = require('../models/posts');
 const User = require('../models/users');
+const DEFAULT_AUTHOR_ID = '67dbba6120d9a8500ed232a5';
 
 const createComment = async (req, res) => {
     try {
-        const { content, author, post } = req.body;
+        const { content, post } = req.body;
+        let author = req.body.author || DEFAULT_AUTHOR_ID;
+
         const userExists = await User.findById(author);
         const postExists = await Post.findById(post);
+
         if (!userExists || !postExists) {
             return res.status(404).json({ message: 'User or Post not found' });
         }
+
         const newComment = new Comment({ content, author, post });
         await newComment.save();
+
+        await Post.findByIdAndUpdate(post, {
+            $push: { comments: newComment._id }
+        });
+
         res.status(201).json(newComment);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
+
 
 const getCommentsByPost = async (req, res) => {
     try {

@@ -3,7 +3,7 @@ const Post = require('../models/posts');
 const createPost = async (req, res) => {
     try {
         const { title, content, subject } = req.body;
-        const author = req.userId || '660f4fb0037a78dfcb3c198a'; // TEMP: hardcoded fallback author ID
+        const author = req.userId || '67dbba6120d9a8500ed232a5'; 
 
         const post = new Post({ title, content, subject, author });
         await post.save();
@@ -77,6 +77,26 @@ const addComment = async (req, res) => {
     }
 };
 
+const getPostView = async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id)
+            .populate('author', 'username')
+            .populate('subject', 'name')
+            .populate({
+                path: 'comments',
+                populate: { path: 'author', select: 'username' }
+            })
+            .lean();
+
+        if (!post) return res.status(404).send("Post not found");
+
+        res.render("thread", { posts: [post] });
+    } catch (error) {
+        console.error("Error rendering thread:", error);
+        res.status(500).send("Server error");
+    }
+};
+
 module.exports = {
     createPost,
     getAllPosts,
@@ -84,5 +104,6 @@ module.exports = {
     updatePost,
     deletePost,
     likePost,
-    addComment
+    addComment,
+    getPostView
 };

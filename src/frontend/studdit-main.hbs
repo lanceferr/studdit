@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="post-subinfo">
-                    <p>in <a href="/subject/{{this.subject._id}}">r/{{this.subject.name}}</a>, {{this.date}}</p>
+                    <p>in <a href="/subjects/r/{{this.subject.name}}">r/{{this.subject.name}}</a>, {{this.date}}</p>
                 </div>
 
                 <div class="post-content">
@@ -53,7 +53,7 @@
             <h3>Top Subjects</h3>
             <ul>
                 {{#each subjects}}
-                <li><a href="/subject/{{this._id}}">r/{{this.name}}</a></li>
+                <li><a href="/subjects/r/{{this.name}}">r/{{this.name}}</a></li>
                 {{/each}}
             </ul>
         </aside>
