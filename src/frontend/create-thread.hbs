@@ -60,7 +60,7 @@
             const subject = document.getElementById('subject').value;
             const content = document.getElementById('content').value;
 
-            const response = await fetch('/threads', {
+            const response = await fetch('/posts', {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',

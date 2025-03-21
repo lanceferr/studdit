@@ -2,13 +2,18 @@ const Post = require('../models/posts');
 
 const createPost = async (req, res) => {
     try {
-        const post = new Post(req.body);
+        const { title, content, subject } = req.body;
+        const author = req.userId || '660f4fb0037a78dfcb3c198a'; // TEMP: hardcoded fallback author ID
+
+        const post = new Post({ title, content, subject, author });
         await post.save();
+
         res.status(201).json(post);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
 };
+
 
 const getAllPosts = async (req, res) => {
     try {

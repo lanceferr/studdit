@@ -5,6 +5,7 @@ const cors = require("cors");
 const path = require('path');
 require('dotenv').config(); // Load environment variables
 
+const Post = require('./backend/models/posts');
 const Subject = require('./backend/models/subjects'); 
 
 const app = express();
@@ -28,7 +29,21 @@ app.use(express.static(path.join(__dirname, 'frontend')));
 app.use("/uploads", express.static("uploads"));
 
 // Define frontend routes
-app.get('/', (req, res) => res.render('studdit-main'));
+app.get('/', async (req, res) => {
+    try {
+        const posts = await Post.find()
+            .populate('author', 'username')
+            .populate('comments')
+            .lean();
+
+        const subjects = await Subject.find().lean();
+
+        res.render('studdit-main', { posts, subjects });
+    } catch (err) {
+        console.error('Error loading homepage:', err);
+        res.status(500).send('Error loading homepage');
+    }
+});
 app.get('/subjects', (req, res) => res.render('subject'));
 app.get('/create-thread', async (req, res) => {
     try {
