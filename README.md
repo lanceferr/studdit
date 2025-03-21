@@ -14,10 +14,9 @@ MEMBERS:
 
 Project Start Date: February 5, 2025
 
-
 ---
 
-``md
+``
 ## 🚀 Running the Website
 
 Follow these steps to run the project locally:
@@ -56,8 +55,6 @@ Or, for development mode with live reloading (requires `nodemon`):
 npm run dev
 ```
 
-> By default, the server runs from `src/server.js`. Make sure this file exists and is correctly configured.
-
 ---
 
 ### 🌐 4. View in Browser
@@ -67,8 +64,6 @@ Once the server is running, open your browser and go to:
 ```
 http://localhost:3000
 ```
-
-> Port may vary depending on your configuration. Check your terminal output.
 
 ---
 
