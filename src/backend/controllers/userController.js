@@ -1,5 +1,6 @@
 const User = require('../models/users');
 const Post = require("../models/posts");
+const jwt = require('jsonwebtoken');
 
 const createUser = async (req, res) => {
     try {
@@ -79,12 +80,21 @@ const loginUser = async (req, res) => {
             return res.status(401).json({ message: "User not found" });
         }
 
-        // Since passwords are NOT hashed yet, use direct comparison
         if (user.password !== password) {
             return res.status(401).json({ message: "Invalid credentials" });
         }
 
-        res.json({ message: "Login successful", user });
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'defaultsecret', { expiresIn: '1h' });
+
+        res.status(200).json({
+            message: "Login successful",
+            token,
+            user: {
+                username: user.username,
+                email: user.email
+            }
+        });
+
     } catch (error) {
         console.error("Error during login:", error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -116,7 +126,7 @@ const getUserProfile = async (req, res) => {
             course: user.course,
             avatar: user.avatar || "/assets/user-avatar.png",
             posts,
-            hasPosts: posts.length > 0 // 🔥 New flag to check if posts exist
+            hasPosts: posts.length > 0
         });
     } catch (error) {
         console.error("Error fetching profile:", error);

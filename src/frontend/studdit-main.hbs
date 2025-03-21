@@ -15,8 +15,8 @@
         </a>
         <nav>
             <input type="text" id="search" placeholder="Search threads...">
-            <a href="/subjects">Subjects</a> 
-            <a href="/create-thread">Create</a>
+            <a href="/subjects">Subjects</a>
+            <a href="/create-thread" id="create-thread-link">Create</a> 
             <a href="/login">Login</a>
         </nav>
     </header>
@@ -29,7 +29,7 @@
                 <div class="post-info">
                     <h2 class="post-title"><a href="/thread/{{this._id}}">{{this.title}}</a></h2>
                     <p class="post-author">
-                        <a href="/profile/{{this.author._id}}">Posted by u/{{this.author.username}}</a>
+                        <a href="/profile/{{this.author._id}}">Posted by u/{{this.author.username}}</a> 
                     </p>
                 </div>
 

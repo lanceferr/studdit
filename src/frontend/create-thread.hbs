@@ -15,7 +15,7 @@
         <nav>
             <input type="text" id="search" placeholder="Search threads...">
             <a href="/subjects">Subjects</a> 
-            <a href="/create-thread">Create</a>
+            <a href="/create-thread" id="create-thread-link">Create</a>
             <a href="/login">Login</a>
         </nav>
     </header>
@@ -30,11 +30,16 @@
                 <input type="text" id="title" name="title" placeholder="Don't overthink it." required>
 
                 <label for="subject">Subject:</label>
-                <select id="subject" name="subject"> 
-                    {{#each subjects}}
-                        <option value="{{this.name}}">{{this.name}}</option>
-                    {{/each}}
+                <select id="subject" name="subject">
+                    {{#if subjects.length}}
+                        {{#each subjects}}
+                            <option value="{{this.id}}">{{this.name}}</option>
+                        {{/each}}
+                    {{else}}
+                        <option disabled>No subjects available</option>
+                    {{/if}}
                 </select>
+
 
                 <label for="content">Content:</label>
                 <textarea id="content" name="content" placeholder="What's on your mind?" required></textarea>
@@ -57,7 +62,10 @@
 
             const response = await fetch('/threads', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
                 body: JSON.stringify({ title, subject, content })
             });
 
@@ -70,5 +78,6 @@
             }
         });
     </script>
+
 </body>
 </html>

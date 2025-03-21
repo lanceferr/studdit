@@ -15,7 +15,7 @@
         <nav>
             <input type="text" id="search" placeholder="Search threads...">
             <a href="/subjects">Subjects</a> 
-            <a href="/create-thread">Create</a>
+            <a href="/create-thread" id="create-thread-link">Create</a>
             <a href="/login">Login</a>
         </nav>
     </header>
@@ -58,11 +58,13 @@
                 });
 
                 const data = await response.json();
-                console.log("Server Response:", data); // Debugging
+                console.log("Server Response:", data); 
 
                 if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('username', data.user.username); 
                     alert("Login successful!");
-                    window.location.href = `/users/profile/${username}`;
+                    window.location.href = `/users/profile/${data.user.username}`;
                 } else {
                     alert(data.message || "Login failed");
                 }
@@ -71,6 +73,7 @@
                 alert("An error occurred, please try again.");
             }
         });
+
     </script>
 </body>
 </html>

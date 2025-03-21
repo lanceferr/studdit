@@ -12,8 +12,10 @@ const createPost = async (req, res) => {
 
 const getAllPosts = async (req, res) => {
     try {
-        const posts = await Post.find().populate('author', 'username');
-        res.json(posts);
+        const post = await Post.findById(req.params.id)
+            .populate('author', 'username')
+            .populate('comments');
+        res.json(post);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -28,6 +30,7 @@ const getPostById = async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 };
+
 
 const updatePost = async (req, res) => {
     try {
