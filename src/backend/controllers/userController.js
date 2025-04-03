@@ -1,16 +1,20 @@
 const User = require('../models/users');
 const Post = require("../models/posts");
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 const createUser = async (req, res) => {
     try {
         const { username, password, email, bio, course } = req.body;
         const avatarPath = req.file ? req.file.path : null;
 
+        // Hash the password before saving it to the database
+        const hashedPassword = await bcrypt.hash(password, 10);
+
         // Create a new user
         const newUser = new User({
             username,
-            password,
+            password: hashedPassword,
             email,
             bio,
             course,
@@ -80,9 +84,16 @@ const loginUser = async (req, res) => {
             return res.status(401).json({ message: "User not found" });
         }
 
-        if (user.password !== password) {
+        try{
+            bcrypt.compare(req.body.password, user.password);
+        }
+
+        catch (error){
             return res.status(401).json({ message: "Invalid credentials" });
         }
+        // if (user.password !== password) {
+        //     return res.status(401).json({ message: "Invalid credentials" });
+        // }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'defaultsecret', { expiresIn: '1h' });
 

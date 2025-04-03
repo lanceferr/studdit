@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const exphbs = require('express-handlebars');
 const cors = require("cors");
 const path = require('path');
+const bcrypt = require('bcryptjs');
 require('dotenv').config(); // Load environment variables
 
 const Post = require('./backend/models/posts');
@@ -101,7 +102,7 @@ app.use('/users', userRoutes);
 app.use('/threads', threadRoutes);
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://admin:admin@cluster0.8zbk4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect('mongodb://localhost:27017/studdit')
 .then(() => console.log('Connected to MongoDB'))
 .catch(err => console.error('Error connecting to MongoDB', err));
 
