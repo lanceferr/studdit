@@ -1,4 +1,5 @@
 const Post = require('../models/posts');
+const Subject = require('../models/subjects'); // Import the Subject model
 
 const createPost = async (req, res) => {
     try {
@@ -7,6 +8,15 @@ const createPost = async (req, res) => {
 
         const post = new Post({ title, content, subject, author });
         await post.save();
+
+        // Push the post ID to the subject's posts array
+        const subjData = await Subject.findById(subject);
+        if (!subjData) {
+            return res.status(404).json({ error: 'Subject not found' });
+        }
+        subjData.posts.push(post._id);
+        await subjData.save();
+
 
         res.status(201).json(post);
     } catch (err) {
