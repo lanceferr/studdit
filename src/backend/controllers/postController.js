@@ -50,8 +50,21 @@ const getPostById = async (req, res) => {
 
 const updatePost = async (req, res) => {
     try {
-        const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        res.json(post);
+        const post = await Post.findById(req.params.id);
+
+        if (!post) return res.status(404).json({ message: 'Post not found' });
+
+        if (post.author.toString() !== req.user.userID) {
+            return res.status(403).json({ message: 'Nope, update your own post' });
+        }
+
+        const updatedPost = await Post.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true, runValidators: true }
+        );
+        
+        res.json(updatedPost);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -59,7 +72,18 @@ const updatePost = async (req, res) => {
 
 const deletePost = async (req, res) => {
     try {
+        const post = await Post.findById(req.params.id);
+
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+
+        if (post.author.toString() !== req.user.userID) {
+            return res.status(403).json({ message: 'Absolutely not, delete your own post' });
+        }
+
         await Post.findByIdAndDelete(req.params.id);
+        
         res.json({ message: 'Post deleted' });
     } catch (err) {
         res.status(400).json({ error: err.message });
