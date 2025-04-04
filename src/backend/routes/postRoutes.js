@@ -7,8 +7,8 @@ const router = express.Router();
 router.post('/', cookieJwtAuth, createPost);
 router.get('/', getAllPosts);
 router.get('/:id', getPostById);
-router.put('/:id', updatePost);
-router.delete('/:id', deletePost);
+router.put('/:id', cookieJwtAuth, updatePost);
+router.delete('/:id', cookieJwtAuth, deletePost);
 router.put('/:id/like', likePost);
 router.post('/:id/comments', addComment);
 
