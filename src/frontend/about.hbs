@@ -15,11 +15,15 @@
             </a>
 
             <nav>
-                <a href="about.html" style="font-size:70%">about us</a>
+                <a href="/about" style="font-size:70%">About Us</a>
                 <input type="text" id="search" placeholder="Search threads...">
-                <a href="subject.html">Subjects</a> 
-                <a href="create-thread.html">Create</a>
-                <a href="login.html">Login</a>
+                {{#if user}}
+                <a href="/create-thread" id="create-thread-link">Create</a>
+                <a href="/logout">Logout</a>
+                {{else}}
+                <!-- Show Login if user is not logged in -->
+                <a href="/login" id="login-link">Login</a>
+                {{/if}}
             </nav>
         </header>
 
@@ -61,10 +65,10 @@
         </div>
 
         <div class="about-gallery">
-            <div class="about-pic"><img src="assets/lance.jpg" style="scale: 27%;" alt="Lance Jacob Ferrer">Lance Jacob Ferrer</div>
-            <div class="about-pic"><img src="assets/james.jpg" style="scale: 137%;">James Foo</div>      
-            <div class="about-pic"><img src="assets/donie.jpg" style="scale: 40%;">Dolf Ronie Atienza</div>   
-            <div class="about-pic"><img src="assets/marc.jpg" style="scale: 25%;">Marc Ian Dumaran</div>   
+            <div class="about-pic"><img src="/assets/lance.jpg" style="scale: 27%;" alt="Lance Jacob Ferrer">Lance Jacob Ferrer</div>
+            <div class="about-pic"><img src="/assets/james.jpg" style="scale: 137%;">James Foo</div>      
+            <div class="about-pic"><img src="/assets/donie.jpg" style="scale: 40%;">Dolf Ronie Atienza</div>   
+            <div class="about-pic"><img src="/assets/marc.jpg" style="scale: 25%;">Marc Ian Dumaran</div>   
         
         </div>
         </div>
