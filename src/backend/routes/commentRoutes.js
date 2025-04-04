@@ -6,7 +6,7 @@ const { cookieJwtAuth } = require('../middleware/cookieJwtAuth');
 router.post('/',cookieJwtAuth, commentController.createComment);
 router.get('/post/:postId', commentController.getCommentsByPost);
 router.get('/:id', commentController.getCommentById);
-router.put('/:id', commentController.updateComment);
-router.delete('/:id', commentController.deleteComment);
+router.put('/:id', cookieJwtAuth, commentController.updateComment);
+router.delete('/:id', cookieJwtAuth, commentController.deleteComment);
 
 module.exports = router;
