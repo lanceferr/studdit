@@ -1,12 +1,12 @@
 const Comment = require('../models/comments');
 const Post = require('../models/posts');
 const User = require('../models/users');
-const DEFAULT_AUTHOR_ID = '67dbba6120d9a8500ed232a5';
+const jwt = require('jsonwebtoken');
 
 const createComment = async (req, res) => {
     try {
         const { content, post } = req.body;
-        let author = req.body.author || DEFAULT_AUTHOR_ID;
+        let author = req.user.userId; // Get the author ID from the JWT token
 
         const userExists = await User.findById(author);
         const postExists = await Post.findById(post);

@@ -84,23 +84,32 @@ const loginUser = async (req, res) => {
             return res.status(401).json({ message: "User not found" });
         }
 
-        try{
-            bcrypt.compare(req.body.password, user.password);
+        const correctPW = await bcrypt.compare(req.body.password, user.password);
+        if (!correctPW) {
+            return res.status(401).json({ message: "Incorrect password" });
         }
+        
+        delete user.password; // Remove password from user object
+        delete correctPW;
 
-        catch (error){
-            return res.status(401).json({ message: "Invalid credentials" });
-        }
-        // if (user.password !== password) {
-        //     return res.status(401).json({ message: "Invalid credentials" });
-        // }
+        const userData = {
+            userId: user._id,
+            username: user.username,
+            email: user.email};
 
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'defaultsecret', { expiresIn: '1h' });
+        const token = jwt.sign(userData, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict'
+        });
+
+        res.locals.user = userData; // Store user data in res.locals for use in views
 
         res.status(200).json({
             message: "Login successful",
-            token,
             user: {
+                userId: user._id,
                 username: user.username,
                 email: user.email
             }

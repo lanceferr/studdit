@@ -15,8 +15,13 @@
         </a>
         <nav>
             <input type="text" id="search" placeholder="Search threads...">
-            <a href="/create-thread" id="create-thread-link">Create</a> 
-            <a href="/login">Login</a>
+            {{#if user}}
+            <a href="/create-thread" id="create-thread-link">Create</a>
+            <a href="/logout">Logout</a>
+            {{else}}
+            <!-- Show Login if user is not logged in -->
+            <a href="/login" id="login-link">Login</a>
+            {{/if}}
         </nav>
     </header>
 

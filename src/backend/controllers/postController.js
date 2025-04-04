@@ -1,10 +1,11 @@
 const Post = require('../models/posts');
 const Subject = require('../models/subjects'); // Import the Subject model
+const jwt = require('jsonwebtoken');
 
 const createPost = async (req, res) => {
     try {
         const { title, content, subject } = req.body;
-        const author = req.userId || '67dbba6120d9a8500ed232a5'; 
+        const author = req.user.userId // Get the author ID from the JWT token
 
         const post = new Post({ title, content, subject, author });
         await post.save();

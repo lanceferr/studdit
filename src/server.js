@@ -3,17 +3,22 @@ const mongoose = require('mongoose');
 const exphbs = require('express-handlebars');
 const cors = require("cors");
 const path = require('path');
-const bcrypt = require('bcryptjs');
+
 require('dotenv').config(); // Load environment variables
 
+const cookieParser = require('cookie-parser');
 const Post = require('./backend/models/posts');
 const postController = require('./backend/controllers/postController');
 const Subject = require('./backend/models/subjects'); 
+const { cookieJwtAuth } = require('./backend/middleware/cookieJwtAuth');
+const {viewAuth} = require('./backend/middleware/viewAuth');
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(cookieParser());
+app.use(viewAuth); // Middleware to check JWT for views
 
 // Set Handlebars as the view engine
 app.engine(
@@ -51,28 +56,18 @@ app.get('/', async (req, res) => {
     }
 });
 app.get('/subjects', (req, res) => res.render('subject'));
-app.get('/create-thread', async (req, res) => {
-    try {
-        const subjects = await Subject.find();
-        const safeSubjects = subjects.map(s => ({
-            id: s._id,
-            name: s.name,
-            description: s.description
-        }));
-        res.render('create-thread', { subjects: safeSubjects });
-    } catch (error) {
-        console.error('Error loading subjects:', error);
-        res.status(500).send('Error loading subjects');
-    }
-});
-
 app.get('/login', (req, res) => res.render('login'));
 app.get('/profile', (req, res) => {res.render('profile')});
 app.get('/register', (req, res) => res.render('register'));
 app.get('/thread', (req, res) => res.render('thread'));
 app.get('/thread/:id', postController.getPostView);
-app.get('/:username/create-thread', async (req, res) => {
+app.get('/:username/create-thread', cookieJwtAuth, async (req, res) => {
     try {
+
+        // Check if the logged-in user is the same as the username in the URL
+        if (req.user.username !== req.params.username) {
+            return res.status(403).send('Forbidden: You can only access your own thread creation page');
+            }
       const subjects = await Subject.find().lean();
       const safeSubjects = subjects.map(s => ({
         id: s._id,
@@ -85,6 +80,11 @@ app.get('/:username/create-thread', async (req, res) => {
       res.status(500).send('Error loading subjects');
     }
   });
+
+  app.get('/logout', (req, res) => {
+    res.clearCookie('token'); // Clear the JWT cookie
+    res.redirect('/'); // Redirect to homepage
+    });
   
 
 // Import and use API routes
