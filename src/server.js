@@ -55,6 +55,7 @@ app.get('/', async (req, res) => {
         res.status(500).send('Error loading homepage');
     }
 });
+app.get('/about', (req, res) => res.render('about'));
 app.get('/subjects', (req, res) => res.render('subject'));
 app.get('/login', (req, res) => res.render('login'));
 app.get('/profile', (req, res) => {res.render('profile')});

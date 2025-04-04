@@ -32,7 +32,7 @@
                 <div class="post-info">
                     <h2 class="post-title">{{this.title}}</h2>
                     <p class="post-author">
-                        <a href="/users/profile/{{this.author._id}}">Posted by u/{{this.author.username}}</a> 
+                        <a href="/users/profile/{{this.author.username}}">Posted by u/{{this.author.username}}</a>
                     </p>
                 </div>
 
@@ -59,7 +59,7 @@
                         {{#each this.comments}}
                         <li class="comment">
                             <p class="comment-author">
-                                <a href="/profile/{{this.author.username}}">u/{{this.author.username}}</a>
+                                <a href="/users/profile/{{this.author.username}}">u/{{this.author.username}}</a>
                             </p>
                             <p class="comment-content">{{this.content}}</p>
                         </li>
