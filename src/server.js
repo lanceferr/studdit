@@ -103,7 +103,7 @@ app.use('/users', userRoutes);
 app.use('/threads', threadRoutes);
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://lanceferrer:sDrK3q8ymgooNHxa@studdit.zct4pzu.mongodb.net/')
+mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log('Connected to MongoDB'))
 .catch(err => console.error('Error connecting to MongoDB', err));
 
