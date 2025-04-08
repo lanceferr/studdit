@@ -104,5 +104,38 @@ document.getElementById('form-search').addEventListener('submit', async function
   const searchTerm = search.concat(document.getElementById('search').value);
   window.location.href = searchTerm;
 });
-  
+
+
+function sortPosts(sortBy) {
+  const postsContainer = document.querySelector('.posts');
+  const posts = Array.from(postsContainer.querySelectorAll('.post'));  // Get all post elements
+
+  let sortedPosts = posts.slice();  // Copy the posts array to avoid mutating the original
+
+  if (sortBy === 'date') {
+      // Sort posts by date (assuming posts have a 'date' attribute in the HTML)
+      sortedPosts.sort((a, b) => new Date(b.querySelector('.post-subinfo p').textContent) - new Date(a.querySelector('.post-subinfo p').textContent));
+  } else if (sortBy === 'rating') {
+      // Sort posts by rating (assuming posts have a 'likes' button with text content)
+      sortedPosts.sort((a, b) => parseInt(b.querySelector('.like-button').textContent.split(' ')[1]) - parseInt(a.querySelector('.like-button').textContent.split(' ')[1]));
+  } else if (sortBy === 'comments') {
+      // Sort posts by the number of comments (assuming posts have a button displaying comment count)
+      sortedPosts.sort((a, b) => parseInt(b.querySelector('.post-interactions button').textContent.split(' ')[1]) - parseInt(a.querySelector('.post-interactions button').textContent.split(' ')[1]));
+  }
+
+  // Remove the current posts and append sorted posts
+  postsContainer.innerHTML = '';
+  sortedPosts.forEach(post => {
+      postsContainer.appendChild(post);  // Append each sorted post
+  });
+}
+
+// Sort posts by selected criteria
+document.getElementById('sort').addEventListener('change', function(event) {
+  const sortBy = event.target.value;
+  sortPosts(sortBy);
+});
+
+
+
   
