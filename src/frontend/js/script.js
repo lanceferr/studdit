@@ -123,7 +123,7 @@ document.querySelectorAll('.btn-delete').forEach(button => {
 
                 if (response.ok) {
                     alert('Post deleted!');
-                    window.location.reload();
+                    window.location.href = '/';
                 } else {
                     alert(result.message || 'Failed to delete post');
                 }
