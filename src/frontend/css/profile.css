@@ -148,3 +148,7 @@ body {
 .post-interactions button:hover {
     background-color: #005ea1;
 }
+
+#form-search{
+    display: inline;
+}

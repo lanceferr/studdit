@@ -141,6 +141,5 @@ footer {
 }
 
 #form-search{
-    display: inline-block;
-    white-space: nowrap;
+    display: inline;
 }

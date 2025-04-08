@@ -93,5 +93,14 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 });
+
+//search bar functionality
+document.getElementById('form-search').addEventListener('submit', async function(event) {
+  event.preventDefault();
+  
+  const search = '/search/';
+  const searchTerm = search.concat(document.getElementById('search').value);
+  window.location.href = searchTerm;
+});
   
   

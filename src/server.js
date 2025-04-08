@@ -61,6 +61,7 @@ app.get('/login', (req, res) => res.render('login'));
 app.get('/profile', (req, res) => {res.render('profile')});
 app.get('/register', (req, res) => res.render('register'));
 app.get('/thread', (req, res) => res.render('thread'));
+app.get('/search', (req, res) => res.render('search'));
 app.get('/thread/:id', postController.getPostView);
 app.get('/:username/create-thread', cookieJwtAuth, async (req, res) => {
     try {
@@ -82,11 +83,31 @@ app.get('/:username/create-thread', cookieJwtAuth, async (req, res) => {
     }
   });
 
-  app.get('/logout', (req, res) => {
-    res.clearCookie('token'); // Clear the JWT cookie
-    res.redirect('/'); // Redirect to homepage
-    });
-  
+app.get('/logout', (req, res) => {
+res.clearCookie('token'); // Clear the JWT cookie
+res.redirect('/'); // Redirect to homepage
+});
+
+app.get('/search/:searchTerm', async (req, res)  => {
+    const searchTerm = req.params.searchTerm;
+    //console.log(searchTerm);
+
+    try {
+        const posts = await Post.find({title: new RegExp(searchTerm, 'i')})
+            .populate('author', 'username')
+            .populate('subject', 'name')
+            .populate({
+                path: 'comments',
+                populate: { path: 'author', select: 'username' }
+            })
+            .lean();
+
+        res.render('search', {posts});
+    } catch (err) {
+        console.error('Error loading search page:', err);
+        res.status(500).send('Error loading search');
+    }
+});
 
 // Import and use API routes
 const postRoutes = require('./backend/routes/postRoutes');

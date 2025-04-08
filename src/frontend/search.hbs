@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studdit Forum - {{subject.name}}</title>
-    <link rel="stylesheet" href="/css/subject.css">
+    <title>studdit</title>
+    <link rel="stylesheet" href="/css/search.css">
 </head>
 <body>
     <!-- Navbar -->
@@ -32,16 +32,20 @@
             <article class="post">
                 <div class="post-info">
                     <h2 class="post-title"><a href="/thread/{{this._id}}">{{this.title}}</a></h2>
-                    <p class="post-author"><a href="/users/profile/{{this.author.username}}">Posted by u/{{this.author.username}}</a></p>
+                    <p class="post-author">
+                        <a href="/users/profile/{{this.author.username}}">Posted by u/{{this.author.username}}</a> 
+                    </p>
                 </div>
+
                 <div class="post-subinfo">
                     <p>in <a href="/subjects/r/{{this.subject.name}}">r/{{this.subject.name}}</a>, {{this.date}}</p>
                 </div>
+
                 <div class="post-content">
                     <p>{{this.content}}</p>
                 </div>
                 <div class="post-interactions">
-                    <button data-post-number="{{this._id}}" class="like-button">👍 {{this.likes}}</button>
+                    <button data-post-id="{{this._id}}" class="like-button">👍 {{this.likes}}</button>
                     <a href="/thread/{{this._id}}">
                           <button data-post-number="{{this._id}}">💬 {{this.comments.length}} Comments</button>
                     </a>
@@ -50,16 +54,9 @@
             {{/each}}
         </section>
 
+        <!-- Sidebar -->
         <aside class="sidebar">
-            <h3>r/{{subject.name}}</h3>
-            <p>{{subject.description}}</p>
-            <hr>
-            Sort posts by: 
-            <select id="sort">
-                <option value="date">Date Posted</option>
-                <option value="rating">Top Rated</option>
-                <option value="comments">Most Commented</option>
-            </select>
+            <h3 id="searchResponse">Search for 'test'</h3>
         </aside>
     </main>
 
@@ -68,5 +65,16 @@
     </footer>
 
     <script src="/js/script.js"></script>
+
+    <script>
+        var searchPath = window.location.pathname;
+        searchPath = searchPath.split('/')[2]; 
+
+        var searchResponse = 'Searching for \'';
+        searchResponse = searchResponse.concat(searchPath, '\'');
+
+        document.getElementById('searchResponse').innerHTML = searchResponse;
+        
+    </script>
 </body>
 </html>

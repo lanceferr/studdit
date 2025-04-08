@@ -56,3 +56,7 @@ footer {
     margin-top: 20px;
     width: 100%;
 }
+
+#form-search{
+    display: inline;
+}
