@@ -90,21 +90,39 @@ const deletePost = async (req, res) => {
     }
 };
 
-const likePost = async (req, res) => {
+  const likePost = async (req, res) => {
+    console.log("User trying to like post:", req.user);
+    if (!req.user) {
+      return res.status(401).json({ message: 'You must be logged in to like posts.' });
+    }
+  
     try {
-      const post = await Post.findByIdAndUpdate(
-        req.params.id,
-        { $inc: { likes: 1 } },
-        { new: true }
-      );
+      const post = await Post.findById(req.params.id);
+  
       if (!post) return res.status(404).json({ message: 'Post not found' });
+  
+      const userID = req.user.userId;
+      const alreadyLiked = post.likedBy.includes(userID.toString());
+  
+      if (alreadyLiked) {
+        // Unlike
+        post.likedBy.pull(userID);
+        post.likes = Math.max(0, post.likes - 1);
+      } else {
+        // Like
+        post.likedBy.push(userID);
+        post.likes += 1;
+      }
+  
+      await post.save();
   
       res.status(200).json({ likes: post.likes });
     } catch (err) {
-      console.error("Error liking post:", err);
+      console.error("Error liking/unliking post:", err);
       res.status(500).json({ message: 'Server error' });
     }
   };
+  
   
 
 const addComment = async (req, res) => {

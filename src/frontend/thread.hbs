@@ -45,7 +45,9 @@
                 </div>
 
                 <div class="post-interactions">
+                    {{#if ../user}}
                     <button data-post-id="{{this._id}}" class="like-button">👍 {{this.likes}}</button>
+                    {{/if}}
                 </div>
 
                 {{!-- Comments Section --}}

@@ -59,12 +59,13 @@ async function addComment(postId) {
       }
     } catch (error) {
       console.error('Error posting comment:', error);
-      alert('An error occurred.');
+      alert('Something went wrong.');
     }
   }
   
 document.addEventListener('DOMContentLoaded', () => {
     const likeButtons = document.querySelectorAll('.like-button');
+    const token = localStorage.getItem("token");
   
     likeButtons.forEach(button => {
       button.addEventListener('click', async () => {
@@ -75,7 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json'
-            }
+            },
+            credentials: 'include' // Include cookies with the request
           });
   
           const data = await response.json();

@@ -9,7 +9,7 @@ router.get('/', getAllPosts);
 router.get('/:id', getPostById);
 router.put('/:id', cookieJwtAuth, updatePost);
 router.delete('/:id', cookieJwtAuth, deletePost);
-router.put('/:id/like', likePost);
+router.put('/:id/like',cookieJwtAuth, likePost);
 router.post('/:id/comments', addComment);
 
 module.exports = router;
