@@ -54,7 +54,7 @@ const updatePost = async (req, res) => {
 
         if (!post) return res.status(404).json({ message: 'Post not found' });
 
-        if (post.author.toString() !== req.user.userID) {
+        if (post.author.toString() !== req.user.userId) {
             return res.status(403).json({ message: 'Nope, update your own post' });
         }
 
@@ -78,7 +78,7 @@ const deletePost = async (req, res) => {
             return res.status(404).json({ message: 'Post not found' });
         }
 
-        if (post.author.toString() !== req.user.userID) {
+        if (post.author.toString() !== req.user.userId) {
             return res.status(403).json({ message: 'Absolutely not, delete your own post' });
         }
 
