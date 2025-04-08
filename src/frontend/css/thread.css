@@ -95,6 +95,29 @@ main {
     margin-right: 10px;
 }
 
+.post-interactions .btn-update, 
+.post-interactions .btn-delete {
+    background: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+.post-interactions .btn-delete {
+    background: #f44336;
+}
+
+.post-interactions .btn-update:hover {
+    background-color: #45a049;
+}
+
+.post-interactions .btn-delete:hover {
+    background-color: #e53935;
+}
+
 .post-interactions button:hover {
     background-color: #005ea1;
 }
