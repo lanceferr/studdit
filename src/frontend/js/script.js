@@ -136,6 +136,35 @@ document.getElementById('sort').addEventListener('change', function(event) {
   sortPosts(sortBy);
 });
 
+ // deleting post function
+document.querySelectorAll('.btn-delete').forEach(button => {
+    button.addEventListener('click', async function() {
+        const postId = this.getAttribute('data-post-id');
+
+        if (confirm('Are you sure you want to delete this post?')) {
+            try {
+                const response = await fetch(`/posts/${postId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('Post deleted!');
+                    window.location.reload();
+                } else {
+                    alert(result.message || 'Failed to delete post');
+                }
+            } catch (error) {
+                console.error('Error deleting post:', error);
+                alert('An error occurred.');
+            }
+        }
+    });
+});
 
 
   
